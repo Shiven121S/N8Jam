@@ -1,5 +1,21 @@
 namespace SpriteKind {
     export const Sokobox = SpriteKind.create()
+    export const Target = SpriteKind.create()
+    export const Particle = SpriteKind.create()
+}
+function moveRight () {
+    if (!(blockMenu.isMenuOpen())) {
+        if (!(mySprite.isHittingTile(CollisionDirection.Right))) {
+            if (Sokobox.x == mySprite.x + 8) {
+                if (!(Sokobox.isHittingTile(CollisionDirection.Right))) {
+                    mySprite.x += 8
+                    Sokobox.x += 8
+                }
+            } else {
+                mySprite.x += 8
+            }
+        }
+    }
 }
 controller.anyButton.onEvent(ControllerButtonEvent.Pressed, function () {
     music.footstep.play()
@@ -11,83 +27,104 @@ function SetColors () {
     color.setColor(4, color.rgb(199, 143, 82))
     color.setColor(12, color.rgb(46, 29, 48))
 }
+controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
+    moveRight()
+})
+controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
+    moveRight()
+})
 function AddTilesAndSprites () {
     if (Math.percentChance(40)) {
         scene.setTile(15, img`
-            f f f 7 f f f 7 
-            f f f 7 f f f 7 
-            7 7 7 7 7 7 7 7 
-            7 f f f 7 f f f 
-            7 f f f 7 f f f 
-            7 7 7 7 7 7 7 7 
-            f f f 7 f f f 7 
-            7 7 7 7 7 7 7 7 
+            7 7 7 f 7 7 7 f 
+            7 7 7 f 7 7 7 f 
+            f f f f f f f f 
+            f 7 7 7 f 7 7 7 
+            f 7 7 7 f 7 7 7 
+            f f f f f f f f 
+            7 7 7 f 7 7 7 f 
+            f f f f f f f f 
             `, true)
     } else if (Math.percentChance(25)) {
         scene.setTile(15, img`
-            f f f 7 f f f 7 
-            7 f f 7 7 f f 7 
-            7 7 7 7 7 7 7 7 
-            7 f f f 7 f f 7 
-            7 7 f f 7 f f f 
-            7 7 7 7 7 7 7 7 
-            f f f 7 f f f 7 
-            7 7 7 7 7 7 7 7 
+            7 7 7 f 7 7 7 f 
+            f 7 7 f f 7 7 f 
+            f f f f f f f f 
+            f 7 7 7 f 7 7 f 
+            f f 7 7 f 7 7 7 
+            f f f f f f f f 
+            7 7 7 f 7 7 7 f 
+            f f f f f f f f 
             `, true)
     } else if (Math.percentChance(35)) {
         scene.setTile(15, img`
-            f f f 7 f f f 7 
-            f f f 7 f f f 7 
-            7 7 7 7 7 7 7 7 
-            7 f f f 7 f f f 
-            7 7 7 7 7 7 7 7 
-            f f f 7 f f f 7 
-            f f f 7 f f f 7 
-            7 7 7 7 7 7 7 7 
+            7 7 7 f 7 7 7 f 
+            7 7 7 f 7 7 7 f 
+            f f f f f f f f 
+            f 7 7 7 f 7 7 7 
+            f f f f f f f f 
+            7 7 7 f 7 7 7 f 
+            7 7 7 f 7 7 7 f 
+            f f f f f f f f 
             `, true)
     }
     scene.setTile(7, img`
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
         `, false)
     scene.setTile(12, img`
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
         `, false)
     scene.setTile(4, img`
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
         `, false)
     scene.setTile(3, img`
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
+        f f f f f f f f 
         `, false)
     scene.placeOnRandomTile(mySprite, 12)
     scene.placeOnRandomTile(Sokobox, 4)
+    scene.placeOnRandomTile(Target, 3)
+}
+function moveLeft () {
+    if (!(blockMenu.isMenuOpen())) {
+        if (!(mySprite.isHittingTile(CollisionDirection.Right))) {
+            if (Sokobox.x == mySprite.x + 8) {
+                if (!(Sokobox.isHittingTile(CollisionDirection.Right))) {
+                    mySprite.x += 8
+                    Sokobox.x += 8
+                }
+            } else {
+                mySprite.x += 8
+            }
+        }
+    }
 }
 blockMenu.onMenuOptionSelected(function (option, index) {
     if (option == "About") {
@@ -202,53 +239,64 @@ blockMenu.onMenuOptionSelected(function (option, index) {
         timer.after(755, function () {
             Level = 1
             glitchesExe.destroy()
-            blockMenu.closeMenu()
-            blockMenu.setControlsEnabled(false)
             scene.setTileMap(img`
                 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
                 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
                 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
                 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
                 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
-                7 7 7 7 7 f f f f f f f f f f 7 7 7 7 7 
-                7 7 7 7 7 f 7 7 7 7 7 7 7 7 f 7 7 7 7 7 
-                7 7 7 7 7 f 7 7 7 7 7 7 7 7 f 7 7 7 7 7 
-                7 7 7 7 7 f c 7 7 4 7 7 7 3 f 7 7 7 7 7 
-                7 7 7 7 7 f 7 7 7 7 7 7 7 7 f 7 7 7 7 7 
-                7 7 7 7 7 f f f f f f f f f f 7 7 7 7 7 
+                7 7 7 7 7 f f f f f f f f f f f 7 7 7 7 
+                7 7 7 7 7 f 7 7 7 7 7 7 7 7 7 f 7 7 7 7 
+                7 7 7 7 7 f 7 7 7 7 7 7 7 7 7 f 7 7 7 7 
+                7 7 7 7 7 f c 7 7 4 7 7 7 3 7 f 7 7 7 7 
+                7 7 7 7 7 f 7 7 7 7 7 7 7 7 7 f 7 7 7 7 
+                7 7 7 7 7 f f f f f f f f f f f 7 7 7 7 
                 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
                 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
                 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
                 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
                 `, TileScale.Eight)
             mySprite = sprites.create(img`
-                . c c c c c c . 
-                c c . . . . c c 
-                c . . c c . . c 
-                c . c . . c . c 
-                c . c . . . . c 
-                c . . c c c c . 
-                c . . . . . . . 
-                . c c c c c c c 
+                . 4 4 4 4 4 4 . 
+                4 4 . . . . 4 4 
+                4 . . 4 4 . . 4 
+                4 . 4 . . 4 . 4 
+                4 . 4 . . . . 4 
+                4 . . 4 4 4 4 . 
+                4 . . . . . . . 
+                . 4 4 4 4 4 4 4 
                 `, SpriteKind.Player)
             Sokobox = sprites.create(img`
-                . c c c c c c . 
-                c c c c c c c c 
-                c . c c c c . c 
-                c . c c c c . c 
-                c c . c c . c c 
-                c c . c c . c c 
-                c c c . . c c c 
-                . c c c c c c . 
+                . 4 . . . . 4 . 
+                4 4 4 4 4 4 4 4 
+                . 4 . . 4 . 4 . 
+                . 4 4 4 4 4 4 . 
+                . 4 4 4 4 . 4 . 
+                . 4 4 4 4 4 4 . 
+                4 4 4 4 4 4 4 4 
+                . 4 . . . . 4 . 
                 `, SpriteKind.Sokobox)
+            Target = sprites.create(img`
+                3 3 3 3 3 3 3 3 
+                3 . . . . . . 3 
+                3 . 3 3 3 3 . 3 
+                3 . 3 . . 3 . 3 
+                3 . 3 . . 3 . 3 
+                3 . 3 3 3 3 . 3 
+                3 . . . . . . 3 
+                3 3 3 3 3 3 3 3 
+                `, SpriteKind.Target)
             AddTilesAndSprites()
             timer.after(50, function () {
+                blockMenu.closeMenu()
+                blockMenu.setControlsEnabled(false)
                 color.setColor(7, color.rgb(130, 172, 149), 750)
             })
         })
     }
 })
 let Level = 0
+let Target: Sprite = null
 let Sokobox: Sprite = null
 let mySprite: Sprite = null
 let glitchesExe: Sprite = null
